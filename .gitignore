@@ -1,0 +1,33 @@
+# Arduino build files
+*.hex
+*.elf
+*.bin
+*.eep
+*.map
+*.dmp
+*.lst
+
+# Arduino IDE files
+*.ino.cpp
+*.ino.d
+*.ino.o
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.tmp
+*.swp
+
+# VS Code settings
+.vscode/
+
+# Arduino libraries (if not tracked)
+lib/
+libraries/
+
+# Build output folders
+build/
+out/
