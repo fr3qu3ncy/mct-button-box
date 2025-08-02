@@ -2,30 +2,96 @@
 #include "Mouse.h"
 
 // Pin Assignments
+// Keyboard pins
 const int buttonA = 2;
 const int buttonB = 3;
+const int buttonC = 4;
+const int buttonD = 5;
+const int buttonE = 6;
+const int buttonF = 7;
+const int buttonG = 8;
+const int buttonH = 9;
+const int buttonI = 10; 
+const int buttonJ = 11;
+const int buttonEsc = 12;
+// Mouse pins
+const int buttonLeftClick = 18;
+const int buttonMouseLeft = 19;
+const int buttonMouseRight = 20;
+const int buttonMouseUp = 21;
+const int buttonMouseDown = 22;
 
 // Key Assignments
 const int keyA = 97; // 'a'
 const int keyB = 98; // 'b'
+const int keyC = 99; // 'c'
+const int keyD = 100; // 'd'
+const int keyE = 101; // 'e'
+const int keyF = 102; // 'f'
+const int keyG = 103; // 'g'
+const int keyH = 104; // 'h'
+const int KeyI = 105; // 'i'
+const int keyJ = 106; // 'j'
+const int keyEsc = 0xB1; // 'esc'
+const int keyLeftClick = 0x01; // Mouse left click
+const int keyMouseLeft = 0x02; // Mouse left movement
+const int keyMouseRight = 0x03; // Mouse right movement
+const int keyMouseUp = 0x04; // Mouse up movement
+const int keyMouseDown = 0x05; // Mouse down movement
+
 
 int prevButtonStateA = HIGH;
 int prevButtonStateB = HIGH;
+int prevButtonStateC = HIGH;
+int prevButtonStateD = HIGH;
+int prevButtonStateE = HIGH;
+int prevButtonStateF = HIGH;
+int prevButtonStateG = HIGH;
+int prevButtonStateH = HIGH;
+int prevButtonStateI = HIGH;
+int prevButtonStateJ = HIGH;
+int prevButtonStateEsc = HIGH;
+int prevButtonStateLeftClick = HIGH;
 
 void setup() {
   // pull up pins
   pinMode(buttonA, INPUT_PULLUP);
   pinMode(buttonB, INPUT_PULLUP);
+  pinMode(buttonC, INPUT_PULLUP);
+  pinMode(buttonD, INPUT_PULLUP);
+  pinMode(buttonE, INPUT_PULLUP);
+  pinMode(buttonF, INPUT_PULLUP);
+  pinMode(buttonG, INPUT_PULLUP);
+  pinMode(buttonH, INPUT_PULLUP);
+  pinMode(buttonI, INPUT_PULLUP);
+  pinMode(buttonJ, INPUT_PULLUP);
+  pinMode(buttonEsc, INPUT_PULLUP);
+  pinMode(buttonLeftClick, INPUT_PULLUP);
+  pinMode(buttonMouseLeft, INPUT_PULLUP);
+  pinMode(buttonMouseRight, INPUT_PULLUP);
+  pinMode(buttonMouseUp, INPUT_PULLUP);
+  pinMode(buttonMouseDown, INPUT_PULLUP);
+  // Initialize Keyboard and Mouse  
   Keyboard.begin();
+  Mouse.begin();
 
 }
 
 void loop() {
-prevButtonStateA = checkButtonOnce(buttonA, keyA, prevButtonStateA);
-prevButtonStateB = checkLatchButton(buttonB, keyB, prevButtonStateB);
+  prevButtonStateA = checkButtonOnce(buttonA, keyA, prevButtonStateA);
+  prevButtonStateB = checkButtonOnce(buttonB, keyB, prevButtonStateB);
+  prevButtonStateA = checkButtonOnce(buttonC, keyC, prevButtonStateC);
+  prevButtonStateD = checkButtonOnce(buttonD, keyD, prevButtonStateD);
+  prevButtonStateE = checkButtonOnce(buttonE, keyE, prevButtonStateE);
+  prevButtonStateF = checkButtonOnce(buttonF, keyF, prevButtonStateF);
+  prevButtonStateG = checkButtonOnce(buttonG, keyG, prevButtonStateG);
+  prevButtonStateH = checkButtonOnce(buttonH, keyH, prevButtonStateH);
+  prevButtonStateI = checkLatchButton(buttonI, KeyI, prevButtonStateI);
+  prevButtonStateJ = checkLatchButton(buttonJ, keyJ, prevButtonStateJ);
+  prevButtonStateEsc = checkButtonOnce(buttonEsc, keyEsc, prevButtonStateEsc);
   
   // Add a small delay to avoid bouncing issues
-  delay(10);
+  //delay(10);
   
 }
 
