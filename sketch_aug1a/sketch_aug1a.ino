@@ -21,26 +21,62 @@ void setup() {
 }
 
 void loop() {
-prevButtonStateA = checkButton(buttonA, keyA, prevButtonStateA);
-prevButtonStateB = checkButton(buttonB, keyB, prevButtonStateB);
+prevButtonStateA = checkButtonOnce(buttonA, keyA, prevButtonStateA);
+prevButtonStateB = checkLatchButton(buttonB, keyB, prevButtonStateB);
   
   // Add a small delay to avoid bouncing issues
   delay(10);
   
 }
 
-int checkButton(int button, int key, int prevButtonState){
+// Single key press per button press
+int checkButtonOnce(int button, int key, int prevButtonState){
   // Check state of button
   int buttonState = digitalRead(button);
 
-  //Button Logic
+  //Button Logic - one key press per button press
+  if (buttonState == LOW && prevButtonState == HIGH) {
+    Keyboard.press(key);
+    delay(50);
+    Keyboard.release(key);
+  }  
+  prevButtonState = buttonState;
+  return prevButtonState;
+}
+
+// Repeat key press while button is held down
+int checkButtonRepeat(int button, int key, int prevButtonState){
+  // Check state of button
+  int buttonState = digitalRead(button);
+
+  //Button Logic - repeate keypress
   if (buttonState == LOW && prevButtonState == HIGH) {
     Keyboard.press(key);
     delay(50);
   }
-  if (buttonState == HIGH && prevButtonState == LOW) {
+  else if (buttonState == HIGH && prevButtonState == LOW) {
     Keyboard.release(key);
     delay(50);
+  }
+  prevButtonState = buttonState;
+  return prevButtonState;
+}
+
+// Single key press when latching sqitch changes state
+int checkLatchButton(int button, int key, int prevButtonState){
+  // Check state of button
+  int buttonState = digitalRead(button);
+
+  //Button Logic - one key press when button changes state
+  if (buttonState == LOW && prevButtonState == HIGH) {
+    Keyboard.press(key);
+    delay(50);
+    Keyboard.release(key);
+  }
+  else if (buttonState == HIGH && prevButtonState == LOW) {
+    Keyboard.press(key);
+    delay(50);
+    Keyboard.release(key);
   }
   prevButtonState = buttonState;
   return prevButtonState;
