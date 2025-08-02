@@ -89,10 +89,11 @@ void loop() {
   prevButtonStateI = checkLatchButton(buttonI, KeyI, prevButtonStateI);
   prevButtonStateJ = checkLatchButton(buttonJ, keyJ, prevButtonStateJ);
   prevButtonStateEsc = checkButtonOnce(buttonEsc, keyEsc, prevButtonStateEsc);
-  moveMouse(buttonMouseLeft, keyMouseLeft);
-  moveMouse(buttonMouseRight, keyMouseRight);
-  moveMouse(buttonMouseUp, keyMouseUp);
-  moveMouse(buttonMouseDown, keyMouseDown);
+  // moveMouse(buttonMouseLeft, keyMouseLeft);
+  // moveMouse(buttonMouseRight, keyMouseRight);
+  // moveMouse(buttonMouseUp, keyMouseUp);
+  // moveMouse(buttonMouseDown, keyMouseDown);
+  moveMouse(buttonMouseLeft, buttonMouseRight, buttonMouseUp, buttonMouseDown);
   prevButtonStateLeftClick = mouseClick(buttonLeftClick, prevButtonStateLeftClick);
   
   // Add a small delay to avoid bouncing issues
@@ -168,29 +169,40 @@ int mouseClick(int button, int prevButtonState) {
 } 
 
 // Move mouse
-void moveMouse(int button, int key) {
-  // Check state of button
-  int buttonState = digitalRead(button);
+void moveMouse(int buttonMouseLeft, int buttonMouseRight, int buttonMouseUp, int buttonMouseDown) {
+  // Check state of buttons
+  int leftState = digitalRead(buttonMouseLeft);
+  int rightState = digitalRead(buttonMouseRight);
+  int upState = digitalRead(buttonMouseUp);
+  int downState = digitalRead(buttonMouseDown);
 
-  //Button Logic - move mouse
-  if (buttonState == LOW) {
-    switch (key) {
-      case keyMouseLeft:
-        Mouse.move(-10, 0, 0); // Move left
-        break;
-      case keyMouseRight:
-        Mouse.move(10, 0, 0); // Move right
-        break;
-      case keyMouseUp:
-        Mouse.move(0, -10, 0); // Move up
-        break;
-      case keyMouseDown:
-        Mouse.move(0, 10, 0); // Move down
-        break;
-      default:
-        break;
-    }
-    delay(10); // Delay to prevent too fast movement
-  }
+  Mouse.move((leftState*-10)+(rightState*10), (downState*-10)+(upState*10), 0); // Move
+  delay(10); // Delay to prevent too fast movement
 }
+
+// void moveMouse(int button, int key) {
+//   // Check state of button
+//   int buttonState = digitalRead(button);
+
+//   //Button Logic - move mouse
+//   if (buttonState == LOW) {
+//     switch (key) {
+//       case keyMouseLeft:
+//         Mouse.move(-10, 0, 0); // Move left
+//         break;
+//       case keyMouseRight:
+//         Mouse.move(10, 0, 0); // Move right
+//         break;
+//       case keyMouseUp:
+//         Mouse.move(0, -10, 0); // Move up
+//         break;
+//       case keyMouseDown:
+//         Mouse.move(0, 10, 0); // Move down
+//         break;
+//       default:
+//         break;
+//     }
+//     delay(10); // Delay to prevent too fast movement
+//   }
+// }
 
