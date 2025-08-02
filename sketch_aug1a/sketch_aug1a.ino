@@ -89,6 +89,11 @@ void loop() {
   prevButtonStateI = checkLatchButton(buttonI, KeyI, prevButtonStateI);
   prevButtonStateJ = checkLatchButton(buttonJ, keyJ, prevButtonStateJ);
   prevButtonStateEsc = checkButtonOnce(buttonEsc, keyEsc, prevButtonStateEsc);
+  moveMouse(buttonMouseLeft, keyMouseLeft);
+  moveMouse(buttonMouseRight, keyMouseRight);
+  moveMouse(buttonMouseUp, keyMouseUp);
+  moveMouse(buttonMouseDown, keyMouseDown);
+  prevButtonStateLeftClick = mouseClick(buttonLeftClick, prevButtonStateLeftClick);
   
   // Add a small delay to avoid bouncing issues
   //delay(10);
@@ -147,3 +152,45 @@ int checkLatchButton(int button, int key, int prevButtonState){
   prevButtonState = buttonState;
   return prevButtonState;
 }
+
+// Mouse left click
+int mouseClick(int button, int prevButtonState) {
+  // Check state of button
+  int buttonState = digitalRead(button);
+
+  //Button Logic - mouse click
+  if (buttonState == LOW && prevButtonState == HIGH) {
+    Mouse.click(MOUSE_LEFT);
+    delay(50); // Delay to prevent too fast clicking
+  }
+  prevButtonState = buttonState;
+  return prevButtonState;
+} 
+
+// Move mouse
+void moveMouse(int button, int key) {
+  // Check state of button
+  int buttonState = digitalRead(button);
+
+  //Button Logic - move mouse
+  if (buttonState == LOW) {
+    switch (key) {
+      case keyMouseLeft:
+        Mouse.move(-10, 0, 0); // Move left
+        break;
+      case keyMouseRight:
+        Mouse.move(10, 0, 0); // Move right
+        break;
+      case keyMouseUp:
+        Mouse.move(0, -10, 0); // Move up
+        break;
+      case keyMouseDown:
+        Mouse.move(0, 10, 0); // Move down
+        break;
+      default:
+        break;
+    }
+    delay(10); // Delay to prevent too fast movement
+  }
+}
+
