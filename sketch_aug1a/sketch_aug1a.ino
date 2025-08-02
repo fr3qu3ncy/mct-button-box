@@ -33,11 +33,15 @@ const int keyH = 104; // 'h'
 const int KeyI = 105; // 'i'
 const int keyJ = 106; // 'j'
 const int keyEsc = 0xB1; // 'esc'
-const int keyLeftClick = 0x01; // Mouse left click
-const int keyMouseLeft = 0x02; // Mouse left movement
-const int keyMouseRight = 0x03; // Mouse right movement
-const int keyMouseUp = 0x04; // Mouse up movement
-const int keyMouseDown = 0x05; // Mouse down movement
+// const int keyLeftClick = 0x01; // Mouse left click
+// const int keyMouseLeft = 0x02; // Mouse left movement
+// const int keyMouseRight = 0x03; // Mouse right movement
+// const int keyMouseUp = 0x04; // Mouse up movement
+// const int keyMouseDown = 0x05; // Mouse down movement
+
+// Mouse hold count
+// This variable is used to count how many times the mouse buttons are held down
+int buttonMouseHoldCount = 0;
 
 
 int prevButtonStateA = HIGH;
@@ -52,6 +56,7 @@ int prevButtonStateI = HIGH;
 int prevButtonStateJ = HIGH;
 int prevButtonStateEsc = HIGH;
 int prevButtonStateLeftClick = HIGH;
+int prevButtonStateMouseMove = HIGH;
 
 void setup() {
   // pull up pins
@@ -89,12 +94,10 @@ void loop() {
   prevButtonStateI = checkLatchButton(buttonI, KeyI, prevButtonStateI);
   prevButtonStateJ = checkLatchButton(buttonJ, keyJ, prevButtonStateJ);
   prevButtonStateEsc = checkButtonOnce(buttonEsc, keyEsc, prevButtonStateEsc);
-  // moveMouse(buttonMouseLeft, keyMouseLeft);
-  // moveMouse(buttonMouseRight, keyMouseRight);
-  // moveMouse(buttonMouseUp, keyMouseUp);
-  // moveMouse(buttonMouseDown, keyMouseDown);
+  // Mouse buttons
   moveMouse(buttonMouseLeft, buttonMouseRight, buttonMouseUp, buttonMouseDown);
   prevButtonStateLeftClick = mouseClick(buttonLeftClick, prevButtonStateLeftClick);
+  
   
   // Add a small delay to avoid bouncing issues
   //delay(10);
@@ -168,7 +171,7 @@ int mouseClick(int button, int prevButtonState) {
   return prevButtonState;
 } 
 
-// Move mouse
+// Move mouse all directions based on button states
 void moveMouse(int buttonMouseLeft, int buttonMouseRight, int buttonMouseUp, int buttonMouseDown) {
   // Check state of buttons
   int leftState = digitalRead(buttonMouseLeft);
@@ -176,33 +179,24 @@ void moveMouse(int buttonMouseLeft, int buttonMouseRight, int buttonMouseUp, int
   int upState = digitalRead(buttonMouseUp);
   int downState = digitalRead(buttonMouseDown);
 
-  Mouse.move((leftState*-10)+(rightState*10), (downState*-10)+(upState*10), 0); // Move
-  delay(10); // Delay to prevent too fast movement
+  int buttonState = leftState * rightState * upState * downState; // Sum of button states to determine if any button is pressed
+
+  if (prevButtonStateMouseMove == HIGH) {
+    buttonMouseHoldCount = 0; // Reset hold count when mouse movement starts
+  }
+  else if (prevButtonStateMouseMove == LOW) {
+    buttonMouseHoldCount = buttonMouseHoldCount + 1; // Increment hold count
+    Mouse.move((leftState*-10)+(rightState*10), (downState*-10)+(upState*10), 0); // Move mouse based on button states
+    if (buttonMouseHoldCount > 5)
+    {
+      delay(8); // Shorter delay to for faster movement
+    }
+    else {
+      delay(50); // Loger delay for smoother movement
+    }
+  }
+  
+  prevButtonStateMouseMove = buttonState; // Update previous button state for mouse movement
+  
 }
-
-// void moveMouse(int button, int key) {
-//   // Check state of button
-//   int buttonState = digitalRead(button);
-
-//   //Button Logic - move mouse
-//   if (buttonState == LOW) {
-//     switch (key) {
-//       case keyMouseLeft:
-//         Mouse.move(-10, 0, 0); // Move left
-//         break;
-//       case keyMouseRight:
-//         Mouse.move(10, 0, 0); // Move right
-//         break;
-//       case keyMouseUp:
-//         Mouse.move(0, -10, 0); // Move up
-//         break;
-//       case keyMouseDown:
-//         Mouse.move(0, 10, 0); // Move down
-//         break;
-//       default:
-//         break;
-//     }
-//     delay(10); // Delay to prevent too fast movement
-//   }
-// }
 
