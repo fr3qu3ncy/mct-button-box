@@ -44,6 +44,14 @@ This project implements a custom button box for controlling keyboard and mouse a
 - Mouse left click button sends a single click per press.
 - I and J buttons act as latching switches (send key on both press and release).
 
+## Sim Racing Game Integration
+
+This button box is designed for use with a simrig in sim racing games. After connecting the Arduino Micro to your PC:
+
+1. **Open your sim racing game** and go to the controls or key bindings menu.
+2. **Assign each button** on the button box to your desired in-game actions (e.g., headlights, pit limiter, radio, etc.) by pressing the physical button when prompted by the game.
+3. **Latching Buttons (I & J)**: These are designed for functions like turn indicators. Since they latch, pressing once will activate the indicator, pressing again will deactivate it—just like a real car's indicator switch.
+
 ## Notes
 
 - All buttons should be momentary push buttons except I and J, which can be latching switches.
