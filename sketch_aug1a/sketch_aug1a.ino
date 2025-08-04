@@ -85,7 +85,7 @@ void setup() {
 void loop() {
   prevButtonStateA = checkButtonOnce(buttonA, keyA, prevButtonStateA);
   prevButtonStateB = checkButtonOnce(buttonB, keyB, prevButtonStateB);
-  prevButtonStateA = checkButtonOnce(buttonC, keyC, prevButtonStateC);
+  prevButtonStateC = checkButtonOnce(buttonC, keyC, prevButtonStateC);
   prevButtonStateD = checkButtonOnce(buttonD, keyD, prevButtonStateD);
   prevButtonStateE = checkButtonOnce(buttonE, keyE, prevButtonStateE);
   prevButtonStateF = checkButtonOnce(buttonF, keyF, prevButtonStateF);
