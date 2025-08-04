@@ -46,15 +46,15 @@ This project implements a custom button box for controlling keyboard and mouse a
 
 ## Sim Racing Game Integration
 
-This button box is designed for use with a simrig in sim racing games. After connecting the Arduino Micro to your PC:
+This button box is designed for use with a Sim-Rig in sim racing games. After connecting the Arduino Micro to your PC:
 
 1. **Open your sim racing game** and go to the controls or key bindings menu.
 2. **Assign each button** on the button box to your desired in-game actions (e.g., headlights, pit limiter, radio, etc.) by pressing the physical button when prompted by the game.
-3. **Latching Buttons (I & J)**: These are designed for functions like turn indicators. Since they latch, pressing once will activate the indicator, pressing again will deactivate it—just like a real car's indicator switch.
+3. **Latching Buttons (I & J)**: These are designed for functions like turn indicators, using a 3-way toggle switch. When you switch to the "on" position, a key press is sent; when you switch back to "off", the key press is sent again. This mimics the behaviour of indicator switches found in GT race cars, where toggling the switch activates or deactivates the indicator.
 
 ## Notes
 
-- All buttons should be momentary push buttons except I and J, which can be latching switches.
+- All buttons should be momentary push buttons except I and J, which can be latching or toggle switches.
 - The board must be connected to a computer via USB for HID functionality.
 
 For more details, see the source code in [`sketch_aug1a/sketch_aug1a.ino`](sketch_aug1a/sketch_aug1a.ino).
