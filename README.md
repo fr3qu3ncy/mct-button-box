@@ -50,7 +50,7 @@ This button box is designed for use with a Sim-Rig in sim racing games. After co
 
 1. **Open your sim racing game** and go to the controls or key bindings menu.
 2. **Assign each button** on the button box to your desired in-game actions (e.g., headlights, pit limiter, radio, etc.) by pressing the physical button when prompted by the game.
-3. **Latching Buttons (I & J)**: These are designed for functions like turn indicators, using a 3-way toggle switch. When you switch to the "on" position, a key press is sent; when you switch back to "off", the key press is sent again. This mimics the behaviour of indicator switches found in GT race cars, where toggling the switch activates or deactivates the indicator.
+3. **Latching Buttons (I & J)**: These are designed for functions like turn indicators, using a toggle switch or a latching button. When you switch to the "on" position, a key press is sent; when you switch back to "off", the key press is sent again. This mimics the behaviour of indicator 3-way toggle switches found in GT race cars, where toggling the switch activates or deactivates the indicator (left and right).
 
 ## Notes
 
